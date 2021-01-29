@@ -2,6 +2,11 @@ import datetime
 from pathlib import Path
 
 
+def get_date_string(time_delta=0):
+    day = datetime.date.today() + datetime.timedelta(days=time_delta)
+    return day.strftime('%Y-%m-%d')
+
+
 def get_previous_working_day_date_id():
     anchor_date = datetime.date(2021, 1, 28)
     anchor_date_id = 4822

@@ -20,4 +20,4 @@ def download_history(past_days, logger):
 
 if __name__ == '__main__':
     logger = PublicLogger()
-    download_history(3, logger)
+    download_history(1, logger)
