@@ -70,7 +70,8 @@ class RecoveryFiles:
         recovery_infos = []
 
         for i in range(1, past_days + 1):
-            recovery_file = RecoveryFiles.FILE_NAME.format(utils.get_date_string(-1 * past_days))
+            recovery_file = RecoveryFiles.FILE_NAME.format(utils.get_date_string(-1 * i))
+
             if not os.path.exists(recovery_file):
                 utils.create_file(recovery_file)
 

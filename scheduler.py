@@ -11,8 +11,9 @@ class JobScheduler:
         if self.seconds == 0:
             self.seconds = 60 * 60 * 24
         self.job = job
-        self.job(**first_time_run_params)
         self.future_run_params = future_run_params
+
+        self.job(**first_time_run_params)
 
         while True:
             self.__run()

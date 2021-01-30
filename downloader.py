@@ -61,8 +61,8 @@ class Downloader:
 
         with http.request('GET', file_url, preload_content=False) as file_reader:
             try:
+                downloaded_size = 0
                 with open(destination_file_path, 'wb') as destination_file:
-                    downloaded_size = 0
                     while True:
                         buffer = file_reader.read(DownloaderConfig.CHUNK_SIZE)
                         downloaded_size += DownloaderConfig.CHUNK_SIZE
@@ -70,18 +70,18 @@ class Downloader:
                             break
                         destination_file.write(buffer)
 
-                    if downloaded_size < total_size:
-                        self.logger.error('Download file {} failed from url: {}'.format(file_name, file_url))
-                        RecoveryFiles.add_failed_file(date_id, file_name)
-                    else:
-                        self.downloaded_files[RecoveryInfo(date_id, file_name)] = True
-                        DownloadedFiles.add_success_file(date_id, file_name)
+                if downloaded_size < total_size:
+                    self.logger.error('Download file {} failed from url: {}'.format(file_name, file_url))
+                    RecoveryFiles.add_failed_file(date_id, file_name)
+                else:
+                    self.downloaded_files[RecoveryInfo(date_id, file_name)] = True
+                    DownloadedFiles.add_success_file(date_id, file_name)
 
-                        self.logger.info('Downloaded file {} of {:.2f}MB from {}'.format(
-                            destination_file_path,
-                            total_size / 1e6,
-                            file_url
-                        ))
+                    self.logger.info('Downloaded file {} of {:.2f}MB from {}'.format(
+                        destination_file_path,
+                        total_size / 1e6,
+                        file_url
+                    ))
             except FileNotFoundError:
                 self.logger.error('FileNotFoundError: {}'.format(destination_file_path))
                 return
