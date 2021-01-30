@@ -14,7 +14,6 @@ class JobScheduler:
 
         while True:
             self.__run()
-            time.sleep(1)
 
     def __run(self):
         current_seconds = utils.datetime_to_second(datetime.datetime.now())
