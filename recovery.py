@@ -83,7 +83,7 @@ class RecoveryFiles:
                         recovery_infos.append(
                             RecoveryInfo(date_id, file_name)
                         )
-        return recovery_infos
+        return set(recovery_infos)
 
 
 def retry_download(downloader, past_days=1):
