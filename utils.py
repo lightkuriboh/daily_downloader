@@ -1,5 +1,5 @@
 import datetime
-from pathlib import Path
+import pathlib
 
 
 def datetime_to_second(specific_time):
@@ -53,4 +53,8 @@ def get_file_name(content_disposition):
 
 
 def create_folder(directory):
-    Path(directory).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(directory).mkdir(parents=True, exist_ok=True)
+
+
+def create_file(file_path):
+    pathlib.Path(file_path).touch(mode=777)

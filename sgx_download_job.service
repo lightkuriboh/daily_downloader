@@ -1,0 +1,11 @@
+[Unit]
+Description=Job to download file daily
+After=network.target
+
+[Service]
+WorkingDirectory=/home/kuribohkute/workspace/programming/projects/DTL_DataEngineer_MiniProject
+ExecStart=/home/kuribohkute/workspace/programming/projects/DTL_DataEngineer_MiniProject/main.py -past_days 10 -hour 14
+
+[Install]
+WantedBy=multi-user.target
+
