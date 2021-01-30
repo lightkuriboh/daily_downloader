@@ -57,4 +57,4 @@ def create_folder(directory):
 
 
 def create_file(file_path):
-    pathlib.Path(file_path).touch(mode=777)
+    pathlib.Path(file_path).touch(mode=0o777)
