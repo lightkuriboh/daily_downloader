@@ -1,4 +1,6 @@
 
+import os.path
+
 import utils
 
 
@@ -41,6 +43,9 @@ class DownloadedFiles:
     @classmethod
     def load_success_files(cls):
         success_files = {}
+        if not os.path.exists(DownloadedFiles.FILE_NAME):
+            utils.create_folder(DownloadedFiles.FILE_NAME)
+
         with open(DownloadedFiles.FILE_NAME, 'r') as f:
             lines = f.readlines()
             for line in lines:
@@ -63,8 +68,13 @@ class RecoveryFiles:
     @classmethod
     def load_failed_infos(cls, past_days=1):
         recovery_infos = []
+
         for i in range(1, past_days + 1):
-            with open(RecoveryFiles.FILE_NAME.format(utils.get_date_string(-1 * past_days)), 'r') as f:
+            recovery_file = RecoveryFiles.FILE_NAME.format(utils.get_date_string(-1 * past_days))
+            if not os.path.exists(recovery_file):
+                utils.create_folder(recovery_file)
+
+            with open(recovery_file, 'r') as f:
                 lines = f.readlines()
                 for line in lines:
                     date_id, file_name = RecoveryInfo.from_self_str(line)
