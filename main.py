@@ -17,6 +17,8 @@ def init_parser():
                         help='The number of previous days you want to download (default = 1)')
     parser.add_argument('-hour', type=int, default=2,
                         help='Hour at which each day the job should be run (default = 2)')
+    parser.add_argument('-minute', type=int, default=0,
+                        help='Minute at which each day the job should be run (default = 00)')
     return parser.parse_args()
 
 
@@ -39,7 +41,7 @@ if __name__ == '__main__':
 
     root_logger = PublicLogger()
 
-    datetime_to_run = datetime.datetime.now().replace(hour=args.hour, minute=0)
+    datetime_to_run = datetime.datetime.now().replace(hour=args.hour, minute=args.minute)
 
     JobScheduler(datetime_to_run, download_history,
                  first_time_run_params={
