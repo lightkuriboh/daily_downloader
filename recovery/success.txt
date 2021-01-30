@@ -1,0 +1,8 @@
+4821;WEBPXTICK_DT-20210127.zip
+4821;TC_20210127.txt
+4821;TickData_structure.dat
+4821;TC_structure.dat
+4822;WEBPXTICK_DT-20210128.zip
+4822;TC_20210128.txt
+4822;TickData_structure.dat
+4822;TC_structure.dat

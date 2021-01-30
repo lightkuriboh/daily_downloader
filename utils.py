@@ -2,6 +2,10 @@ import datetime
 from pathlib import Path
 
 
+def datetime_to_second(specific_time):
+    return specific_time.hour * 3600 + specific_time.minute * 60 + specific_time.second
+
+
 def get_date_string(time_delta=0):
     day = datetime.date.today() + datetime.timedelta(days=time_delta)
     return day.strftime('%Y-%m-%d')

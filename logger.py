@@ -1,5 +1,8 @@
 import logging
 
+urllib3_logger = logging.getLogger('urllib3')
+urllib3_logger.setLevel(logging.CRITICAL)
+
 
 class LoggerConfig:
     LOGGING_DIR = 'logs/'
