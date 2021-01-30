@@ -26,7 +26,7 @@ def download_history(past_days, logger):
     retry_download(downloader, past_days)
 
     yesterday_id = utils.get_previous_working_day_date_id()
-    for date_id in range(yesterday_id - past_days + 1, yesterday_id + 1):
+    for date_id in range(max(1, yesterday_id - past_days + 1), yesterday_id + 1):
         for file_type in files_to_download:
             downloader.download(
                 files_to_download[file_type].format(date_id),
