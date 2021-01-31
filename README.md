@@ -58,7 +58,7 @@
 - Recovery schedule is mentioned above.  
 - Keeps recovery information in files by the date it is logged (in ```recovery``` folder,\
   format ```recovery_{date}.txt```).  
-- On each run, loads ```past_days``` recovery logs, retries to download failed files.\ 
+- On each run, loads ```past_days``` recovery logs, retries to download failed files. \
   Writes files that are failed to download today to ```recovery_{today}.txt```.  
   
 ## Systemd serving  
