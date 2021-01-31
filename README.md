@@ -62,7 +62,7 @@
   Writes files that are failed to download today to ```recovery_{today}.txt```.  
   
 ## Systemd serving  
-- I provided a .service file that allows user to run the job as ```systemd``` process.  
+- I provided a ```.service``` file that allows user to run the job as ```systemd``` process.  
 - I tended to send a notification email is the ```systemd``` process is ```on-failure```, \
   but was not success (deadline) on setting up ```bds-mailx```.  
   
