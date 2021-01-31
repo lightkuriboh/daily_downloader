@@ -46,8 +46,9 @@
   
 #### Download plan    
 - Downloads file based on just one information: date_id - the associate ID with date, fixed by SGX. \
-  (ex: 'https://links.sgx.com/1.0.0/derivatives-historical/2101/WEBPXTICK_DT.zip' - date_id is 2101)  
-- Get the file's name from the server (called ```server_filename```), and the file size. If the file size (in bytes) is zero, marks ```file not found```.   
+  (ex: ```https://links.sgx.com/1.0.0/derivatives-historical/2101/WEBPXTICK_DT.zip``` - ```date_id=2101```)  
+- Get the file's name from the server (called ```server_filename```), and the file size. \
+  If the header ```Content-Length=0```, marks ```file not found```.   
 - At first, just downloads to ```temp/``` folder. After the download is complete, move it to the ```downloaded/``` folder. \
   This will not have us clean the wanted ```downloaded/``` folder in case downloads failed.  
 - When a file is downloaded and moved to ```downloaded/``` successfully, immediately logs it to the ```recovery/success.txt``` with information: ```date_id-server_filename```.  
