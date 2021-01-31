@@ -3,7 +3,7 @@
   
 ## Project features
 - Based on user's command, on a specific time in day, downloading historic trading data.   
-- Based on user's instruction, being able to download trading history in N (N >= 1) previous days, \
+- Based on user's instruction, being able to download trading history in ```N (N >= 1)``` previous days, \
   up to the number of published data.  
 - Logging information for future debugging and resolving issues.  
 - Running in background, starting with the system, and auto restarting on failure.  
@@ -15,7 +15,7 @@
 - Only working days have trading data.  
 - Not all consecutive working days have trading data (especially with early published days).  
 - With each day in the past that had trading history published, SGX associates it with an auto-increment ID.
-- Data's format (TickData_structure.dat, TC_structure.dat) may change overtime, in the past or in the future.  
+- Data's format (```TickData_structure.dat```, ```TC_structure.dat```) may change overtime, in the past or in the future.  
 - Data's structure on different days might be different (On early days, main datas are not zipped files).
   
 ## Project design details  
