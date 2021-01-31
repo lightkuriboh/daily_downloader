@@ -87,7 +87,9 @@ class RecoveryFiles:
 
 
 def retry_download(downloader, past_days=1):
+    downloader.logger.info('Start recovering')
     recovery_infos = RecoveryFiles.load_failed_infos(past_days)
     for recovery_info in recovery_infos:
         downloader.logger.info('Retrying to download file {}'.format(recovery_info.file_name))
         downloader.download(recovery_info.file_name, recovery_info.date_id)
+    downloader.logger.info('Finish recovering')

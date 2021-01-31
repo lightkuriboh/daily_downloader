@@ -56,10 +56,10 @@ class Downloader:
         final_destination_file_path = self.__get_destination_file(Downloader.DOWNLOAD_ROOT_DIR, file_name, date_id)
 
         if RecoveryInfo(date_id, file_name) in self.downloaded_files:
-            self.logger.info('Skip downloaded file {}'.format(destination_file_path))
+            self.logger.info('Skip downloaded file {}'.format(final_destination_file_path))
             return
 
-        self.logger.info('Prepare to download {} from url: {}'.format(destination_file_path, file_url))
+        self.logger.info('Prepare to download {} from url: {}'.format(final_destination_file_path, file_url))
         self.logger.info('File size: {:.2f}MB'.format(total_size / 1e6))
 
         with http.request('GET', file_url, preload_content=False) as file_reader:
@@ -83,12 +83,12 @@ class Downloader:
                     DownloadedFiles.add_success_file(date_id, file_name)
 
                     self.logger.info('Downloaded file {} of {:.2f}MB from {}'.format(
-                        destination_file_path,
+                        final_destination_file_path,
                         total_size / 1e6,
                         file_url
                     ))
             except FileNotFoundError:
-                self.logger.error('FileNotFoundError: {}'.format(destination_file_path))
+                self.logger.error('FileNotFoundError: {}'.format(final_destination_file_path))
                 return
 
 
