@@ -1,3 +1,4 @@
+import shutil
 import urllib3
 
 import utils
@@ -7,6 +8,7 @@ from recovery import DownloadedFiles, RecoveryFiles, RecoveryInfo
 class Downloader:
     DOWNLOAD_CONTENT_TYPES = ['application/octet-stream', 'application/download']
     DOWNLOAD_ROOT_DIR = 'downloaded'
+    DOWNLOAD_TEMP_DIR = 'temp'
 
     def __init__(self, logger):
         self.logger = logger
@@ -27,13 +29,13 @@ class Downloader:
         }
         return file_info['file_size'], file_info['file_name']
 
-    def __get_destination_file(self, file_name, date_id):
+    def __get_destination_file(self, root_folder, file_name, date_id):
         inferred_date = utils.get_date_from_filename(file_name)
         destination_folder = self.date_id_map[date_id] if date_id in self.date_id_map else inferred_date
         if date_id not in self.date_id_map:
             self.date_id_map[date_id] = destination_folder
 
-        directory = '/'.join([Downloader.DOWNLOAD_ROOT_DIR, destination_folder])
+        directory = '/'.join([root_folder, destination_folder])
         utils.create_folder(directory)
 
         return '/'.join([directory,
@@ -50,7 +52,8 @@ class Downloader:
         if total_size > 1e9:
             self.logger.warn('Large file size: {}MB from url: {}'.format(total_size / 1e6, file_url))
 
-        destination_file_path = self.__get_destination_file(file_name, date_id)
+        destination_file_path = self.__get_destination_file(Downloader.DOWNLOAD_TEMP_DIR, file_name, date_id)
+        final_destination_file_path = self.__get_destination_file(Downloader.DOWNLOAD_ROOT_DIR, file_name, date_id)
 
         if RecoveryInfo(date_id, file_name) in self.downloaded_files:
             self.logger.info('Skip downloaded file {}'.format(destination_file_path))
@@ -75,6 +78,8 @@ class Downloader:
                     RecoveryFiles.add_failed_file(date_id, file_name)
                 else:
                     self.downloaded_files[RecoveryInfo(date_id, file_name)] = True
+                    shutil.move(destination_file_path, final_destination_file_path)
+
                     DownloadedFiles.add_success_file(date_id, file_name)
 
                     self.logger.info('Downloaded file {} of {:.2f}MB from {}'.format(
