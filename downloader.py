@@ -31,6 +31,9 @@ class Downloader:
 
     def __get_destination_file(self, root_folder, file_name, date_id):
         inferred_date = utils.get_date_from_filename(file_name)
+        if inferred_date is None:
+            inferred_date = utils.date_id_to_date(date_id)
+
         destination_folder = self.date_id_map[date_id] if date_id in self.date_id_map else inferred_date
         if date_id not in self.date_id_map:
             self.date_id_map[date_id] = destination_folder

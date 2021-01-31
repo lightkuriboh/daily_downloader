@@ -24,9 +24,29 @@ def get_previous_working_day_date_id():
     return anchor_date_id
 
 
+def parse_date(date_string: str):
+    return '-'.join([date_string[0:4], date_string[4:6], date_string[6:8]])
+
+
+def date_id_to_date(date_id):
+    date_id = int(date_id)
+    anchor_date = datetime.date(2021, 1, 28)
+    anchor_date_id = 4822
+
+    while date_id < anchor_date_id:
+        anchor_date += datetime.timedelta(days=1)
+        if anchor_date.strftime('%a') not in ['Sat', 'Sun']:
+            date_id += 1
+
+    while date_id > anchor_date_id:
+        anchor_date += datetime.timedelta(days=-1)
+        if anchor_date.strftime('%a') not in ['Sat', 'Sun']:
+            date_id -= 1
+
+    return parse_date(anchor_date.strftime('%Y%m%d'))
+
+
 def get_date_from_filename(file_name):
-    def parse_date(date_string: str):
-        return '-'.join([date_string[0:4], date_string[4:6], date_string[6:8]])
 
     date_length = 4 + 2 + 2
 
@@ -41,7 +61,7 @@ def get_date_from_filename(file_name):
             date = ''
         if counter == date_length:
             return parse_date(date)
-    return parse_date('19700101')
+    return None
 
 
 def get_file_name(content_disposition):
